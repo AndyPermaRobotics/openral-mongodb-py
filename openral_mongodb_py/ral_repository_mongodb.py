@@ -8,7 +8,10 @@ from pymongo.database import Database
 
 
 class RalRepositoryMongoDB(RalRepository):
-    
+    """
+    MongoDB Implementation of a RalRepository for openRAL.
+    """
+
     def __init__(
         self, 
         database: Database,
@@ -20,11 +23,6 @@ class RalRepositoryMongoDB(RalRepository):
         self._collectionName = collectionName
         """Name of the collection in the database where the [RalObject]s are stored."""
     
-    
-    """
-    MongoDB Implementation of a RalRepository for openRAL.
-    """
-
     async def get_ral_object_by_uid(self, uid: str, specificPropertiesTransform: Optional[Callable] = None) -> RalObject:
         """
         Returns the [RalObject] with the given uid. Looks for 'identity.UID' == uid in the database.
