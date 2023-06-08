@@ -11,6 +11,12 @@
         },
         {
             "type": "shell",
+            "label": "Start MongoDB Docker container",
+            "command": "docker-compose -p=openral_mongodb_py -f tests/assets/docker-compose.yml up -d",
+            "problemMatcher": []
+        },
+        {
+            "type": "shell",
             "label": "Build and upload package to test.pypi.org",
             "command": "python3 setup.py sdist bdist_wheel && twine upload --repository testpypi dist/*",
             "problemMatcher": [],
