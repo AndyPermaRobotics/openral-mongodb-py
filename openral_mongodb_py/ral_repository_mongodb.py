@@ -30,7 +30,6 @@ class RalRepositoryMongoDB(RalRepository):
         """
 
         collection = self._get_collection()
-
         doc : Optional[Mapping[str, Any]] = collection.find_one({"identity.UID": uid})
 
         if doc is None:
@@ -46,7 +45,6 @@ class RalRepositoryMongoDB(RalRepository):
         """
         
         collection = self._get_collection()
-
         docs = collection.find({"currentGeolocation.container.UID": containerId}) 
 
         #loop over docs
@@ -57,6 +55,24 @@ class RalRepositoryMongoDB(RalRepository):
             ral_objects.append(ral_object)
 
         return ral_objects
+
+    async def get_ral_objects_by_ral_type(self, ralType: str) -> List[RalObject]:
+        """
+        Returns all [RalObject]s with the given ralType. Looks for 'template.RALType' == ralType in the database.
+        """
+
+        collection = self._get_collection()
+        docs = collection.find({"template.RALType": ralType})
+
+        ral_objects = []
+
+        #loop over docs
+        for doc in docs:
+            ral_object = RalObject.from_map(doc)
+            ral_objects.append(ral_object)
+
+        return ral_objects
+
 
     def _get_collection(self):
         return self._database.get_collection(self._collectionName)

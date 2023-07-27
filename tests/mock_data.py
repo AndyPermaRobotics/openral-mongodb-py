@@ -87,31 +87,6 @@ mock_docs = [
     },
     {
         "identity": {
-            "UID": "mqtt_id",
-            "name": "MQTT Broker megabrain permabot pt1",
-            "siteTag": "PER",
-        },
-        "definition": {
-            "definitionText": "Is a software that serves MQTT messages.",
-            "definitionURL": "",
-        },
-        "objectState": "undefined",
-        "template": {"RALType": "mqtt_broker_service", "version": "1", "objectStateTemplates": ""},
-        "specificProperties": [
-            {"key": "lastUpdateTimestamp", "value": "value", "unit": "timestamp"},
-            {"key": "ipAddress", "value": "[add IP address here]", "unit": "string"},
-            {"key": "port", "value": "[add port here]", "unit": "string"}
-        ],
-        "currentGeolocation": {
-            "container": {"UID": "me_pc"} #is a child of the PC instance
-        },
-        "locationHistoryRef": [],
-        "ownerHistoryRef": [],
-        "methodHistoryRef": [],
-        "linkedObjectRef": []
-    },
-    {
-        "identity": {
             "UID": "mqtt_child",
             "name": "Some child of the MQTT Broker",
             "siteTag": "PER",

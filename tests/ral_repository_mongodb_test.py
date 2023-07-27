@@ -65,4 +65,27 @@ class TestRalRepositoryMongoDB:
         with pytest.raises(Exception):
             await repo.get_ral_object_by_uid("not_existing_uid")
 
-    #todo test container_id 
+    @pytest.mark.asyncio
+    async def test_get_ral_objects_with_container_id(self, create_repository):
+
+        repo: RalRepositoryMongoDB = create_repository
+
+        ral_objects = await repo.get_ral_objects_with_container_id("me_pc")
+
+        uids = [ral_object.identity.uid for ral_object in ral_objects]
+        
+        assert len(ral_objects) == 2, "expected 2 ral_objects having container_id 'me_pc'"
+        assert uids.count("mqtt_id") == 1, "expected 1 mqtt_id"
+        assert uids.count("firebaseConnectionUID") == 1, "expected 1 firebaseConnectionUID"
+        
+
+    @pytest.mark.asyncio
+    async def test_get_ral_objects_by_ral_type(self, create_repository):
+
+        repo: RalRepositoryMongoDB = create_repository
+
+        ral_objects = await repo.get_ral_objects_by_ral_type("pc_instance")
+
+        assert len(ral_objects) == 1, "expected 1 ral_object having ral_type 'pc_instance'"
+        assert ral_objects[0].identity.uid == "me_pc", "expected ral_object with uid 'me_pc'"
+
